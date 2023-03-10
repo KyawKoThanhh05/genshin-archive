@@ -139,10 +139,6 @@ const characters = [
 
         
 ]
-
-// POPUP FUNCTION //
-
-
 let title = document.getElementById("character-title")
 let region = document.getElementById("character-region")
 let vision = document.getElementById("character-vision")
@@ -151,24 +147,8 @@ let affiliation = document.getElementById("character-affiliation")
 let constellation = document.getElementById("character-constellation")
 let desc = document.getElementById("character-desc")
 let picture = document.getElementById("popup-picture");
-
-function displayPopup(nickname) {
-    fetch(`https://api.genshin.dev/characters/${nickname}/`)
-        .then(response => response.json())
-        .then(response => {
-            title.textContent = response.name;
-            region.textContent = response.nation;
-            vision.textContent = response.vision;
-            weapon.textContent = response.weapon;
-            affiliation.textContent = response.affiliation;
-            constellation.textContent = response.constellation;
-            desc.textContent = response.description
-        })
-    picture.src = `https://api.genshin.dev/characters/${nickname}/card`
-    document.getElementById("popup-1").classList.toggle("active")
-    
-};
-
+let viewBtn = document.getElementById("view-btn")
+let cancelBtn = document.getElementById("cancel-btn")
 
   //character info API //
 
@@ -182,12 +162,41 @@ characters.forEach((character) => {
     </div>
     <div class="content">
     <div class="title"></div>
-    <button id="view-btn" onclick="displayPopup('${character.nickname}')">
+    <button id="view-btn" onclick="${displayPopup(character.nickname)}">
         View
     </button>
     </div>
 </div>`
 })
+
+
+
+// POPUP FUNCTION //
+
+
+
+
+cancelBtn.addEventListener("click", function() {
+    document.getElementById("popup-1").classList.toggle("active")
+})
+
+
+function displayPopup(nickname) {
+    fetch(`https://api.genshin.dev/characters/${nickname}/`)
+    .then(response => response.json())
+    .then(response => {
+        title.textContent = response.name;
+        region.textContent = response.nation;
+        vision.textContent = response.vision;
+        weapon.textContent = response.weapon;
+        affiliation.textContent = response.affiliation;
+        constellation.textContent = response.constellation;
+        desc.textContent = response.description
+    })
+picture.src = `https://api.genshin.dev/characters/${nickname}/card`
+document.getElementById("popup-1").classList.toggle("active")
+};
+
 
 
 
