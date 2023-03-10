@@ -136,9 +136,8 @@ const characters = [
         class : "anemo",
         nickname : "xiao"
         },
-
-        
 ]
+
 let title = document.getElementById("character-title")
 let region = document.getElementById("character-region")
 let vision = document.getElementById("character-vision")
@@ -162,7 +161,7 @@ characters.forEach((character) => {
     </div>
     <div class="content">
     <div class="title"></div>
-    <button id="view-btn" onclick="${displayPopup(character.nickname)}">
+    <button id="view-btn" onclick="displayPopup('${character.nickname}')">
         View
     </button>
     </div>
@@ -192,9 +191,9 @@ function displayPopup(nickname) {
         affiliation.textContent = response.affiliation;
         constellation.textContent = response.constellation;
         desc.textContent = response.description
+        picture.src = `https://api.genshin.dev/characters/${nickname}/card`
+        document.getElementById("popup-1").classList.toggle("active")
     })
-picture.src = `https://api.genshin.dev/characters/${nickname}/card`
-document.getElementById("popup-1").classList.toggle("active")
 };
 
 
